@@ -146,6 +146,7 @@ function App() {
           ...list,
           update: !list.update
         }
+
       }
       return list
     }))

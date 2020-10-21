@@ -9,14 +9,17 @@ import SaveAltIcon from '@material-ui/icons/SaveAlt';
 const ListWrapper = styled.div`
 display:flex;
 align-items:center;
+margin:0 auto;
 margin-top:1.4rem;
-margin-left:1.3rem;
 font-size:2rem;
+border:7px solid #49736F;
+width:400px;
 
 
 /* border-bottom:2px solid #A65149; */
 h5{
-    margin-right:1rem;
+    margin:0 auto;
+    padding:2rem;
     font-weight:600;
     ${props =>
         props.done ? css`
@@ -52,15 +55,18 @@ function List({ update,done, list, handleRemove, handleToggle, handleUpdateToggl
     return (
         <>
             <ListWrapper done={done} update={update}  >
-                <input
+                {/* <input
 
                     type='checkbox'
                     onClick={() => {
                         handleToggle(list.id)
                     }
                     }
-                />
-                <h5 > {list.menu}</h5>
+                /> */}
+                <h5 onClick={() => {
+                        handleToggle(list.id)
+                    }
+                    } > 오늘의 메뉴는 '{list.menu}' 입니다 </h5>
 
                 <button  className='list-icon' 
                 onClick={() => {
