@@ -1,11 +1,9 @@
-import React, { useState, useRef } from 'react';
-import TodoForm from './compopnent/todo-form';
-import TodoList from './compopnent/todo-list';
-import AppWrapper from './compopnent/app-wrapper';
-import produce from 'immer'
-import { createGlobalStyle } from 'styled-components';
-
-
+import React, { useState, useRef } from "react";
+import TodoForm from "./compopnent/todo-form";
+import TodoList from "./compopnent/todo-list";
+import AppWrapper from "./compopnent/app-wrapper";
+import produce from "immer";
+import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
   body{
@@ -19,59 +17,41 @@ const GlobalStyle = createGlobalStyle`
   }
   `;
 
-
 function App() {
-
-  
-
-
-  const [input, setInput] = useState({
-    menu: '',
-  },
-  {
-    done:false
-  },
-{
-  update:false
-}
+  const [input, setInput] = useState(
+    {
+      menu: "",
+    },
+    {
+      done: false,
+    }
   );
-
-
- 
 
   // const {menu} = input;
   const [listZip, setListZip] = useState([
     {
       id: 1,
-      menu: '회',
+      menu: "회",
       done: false,
-      update:false
-
     },
     {
       id: 2,
-      menu: '가지구이',
+      menu: "가지구이",
       done: false,
-      update:false
-
     },
-
   ]);
 
-
-  const handleChange = e => {
-
-    setInput(produce(input, (draft) => {
-      draft['menu'] = e.target.value;
-
-    }));
+  const handleChange = (e) => {
+    setInput(
+      produce(input, (draft) => {
+        draft["menu"] = e.target.value;
+      })
+    );
   };
-
 
   const nextId = useRef(3);
 
-
-  const handleCreate = e => {
+  const handleCreate = (e) => {
     e.preventDefault();
     console.log(input);
 
@@ -79,26 +59,19 @@ function App() {
       id: nextId.current,
       menu: input.menu,
       done: false,
-      update:false
-
     };
     setListZip(
       produce(listZip, (draft) => {
         console.log(listZip, list);
-        //여기서 draftZip이 listZip임 
-        draft.push(list)
+        //여기서 draftZip이 listZip임
+        draft.push(list);
       })
     );
     setInput({
-      menu: '',
-      
+      menu: "",
     });
     nextId.current += 1;
-    
-
   };
-
-
 
   // const handleCreate = () => {
   //   const list= {
@@ -116,55 +89,38 @@ function App() {
   //   nextId.current += 1;
   // };
 
-
-
-
   const handleRemove = (id) => {
-    setListZip(listZip.filter(list => list.id !== id)
-    )
-  }
-
- 
+    setListZip(listZip.filter((list) => list.id !== id));
+  };
 
   const handleToggle = (id) => {
-
-    setListZip(listZip.map(list => {
-      if (list.id === id) {
-        return {
-          ...list,
-          done: !list.done
+    setListZip(
+      listZip.map((list) => {
+        if (list.id === id) {
+          return {
+            ...list,
+            done: !list.done,
+          };
         }
-      }
-      return list
-    }))
-  }
+        return list;
+      })
+    );
+  };
 
-
-  const handleUpdateToggle = (id) => {
-    setListZip(listZip.map(list => {
-      if (list.id === id) {
-        return {
-          ...list,
-          update: !list.update
+  const handleUpdateConfirm = (id, newMenu) => {
+    setListZip(
+      listZip.map((list) => {
+        if (list.id !== id) {
+          return listZip;
+        } else {
+          return {
+            ...list,
+            menu: newMenu,
+          };
         }
-        
-      }
-      return list
-    }))
-    }
-  
-
-
-
-
-//       const handleUpdate = (id,listZip) => {
-// console.log('업데이트');
-
-//       }
-
-
-
-        
+      })
+    );
+  };
 
   return (
     <>
@@ -175,21 +131,16 @@ function App() {
           menu={input.menu}
           handleChange={handleChange}
           handleCreate={handleCreate}
-          
         />
         <TodoList
           listZip={listZip}
           handleRemove={handleRemove}
           handleToggle={handleToggle}
-          handleUpdateToggle={handleUpdateToggle}
-       
-      
-          
-
+          handleUpdateConfirm={handleUpdateConfirm}
         />
       </AppWrapper>
     </>
-  )
+  );
 }
 
 export default App;
