@@ -7,7 +7,7 @@ const ListWrapper = styled.div`
 display:flex;
 align-items:center;
 margin-top:1.4rem;
-margin-left:1.4rem;
+margin-left:1.3rem;
 font-size:2rem;
 
 
@@ -26,8 +26,6 @@ h5{
     }
 }
 
-
-
 .list-icon{
     display:none;
 }
@@ -37,13 +35,7 @@ h5{
     }
   }
 
-
-
 `
-
-
-
-
 
 function List({ done, list, handleRemove, handleToggle }) {
     return (
