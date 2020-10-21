@@ -12,9 +12,10 @@ const GlobalStyle = createGlobalStyle`
     background: #49736F;
   }
   h1{
+    margin:0 auto;
     color:#A65149;
     font-size:15rem;
-    margin:0 auto;
+
   }
   `;
 
@@ -146,7 +147,7 @@ function App() {
           ...list,
           update: !list.update
         }
-
+        
       }
       return list
     }))

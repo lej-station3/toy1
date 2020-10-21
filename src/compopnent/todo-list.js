@@ -94,10 +94,9 @@ function List({ update,done, list, handleRemove, handleToggle, handleUpdateToggl
 
 
 const TodoListWrapper = styled.div`
-background:#BFAE7A;
 flex:1;
 margin-top:2rem;
-
+background:#BFAE7A;
 `
 
 

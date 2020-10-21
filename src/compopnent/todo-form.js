@@ -9,13 +9,15 @@ margin-bottom:1.2rem;
     input{
         width:25rem;
         height:3rem;
+        margin-right:1.2rem;
+        font-size:1.6rem;
+        font-style:italic;
         text-align:center;
         border:none;
         box-shadow:none;
         outline-style: none;
-        font-size:1.6rem;
-        font-style:italic;
-        margin-right:1.2rem;
+     
+       
         cursor: pointer;
         &:hover{
             border-bottom:3px solid #A65149;
@@ -23,15 +25,18 @@ margin-bottom:1.2rem;
 
     }
     button{
+        color:#000;
+        font-size:1.8rem;
+        font-weight:bold;
         border:none;
-        box-shadow:none;
         border-radius:5px;
+        box-shadow:none;
         outline-style: none;
         cursor: pointer;
         background:#fff;
-     font-size:1.8rem;
-     color:#000;
-     font-weight:bold;
+
+  
+    
     &:hover{
         color:#fff;
         background:#A65149;
