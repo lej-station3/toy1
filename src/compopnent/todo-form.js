@@ -43,7 +43,7 @@ margin-bottom:1.2rem;
 `
 
 
-function TodoForm({ handleChange, handleCreate, menu }) {
+function TodoForm({ handleChange, handleCreate, menu,handleUpdate}) {
 
 
 
@@ -60,6 +60,7 @@ function TodoForm({ handleChange, handleCreate, menu }) {
 
 
                 />
+                
                 <button
                     onClick={handleCreate}
 

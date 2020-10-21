@@ -1,5 +1,8 @@
-import React from 'react';
+import React,{useState} from 'react';
 import styled, { css } from 'styled-components';
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import CreateIcon from '@material-ui/icons/Create';
+import SaveAltIcon from '@material-ui/icons/SaveAlt';
 
 
 
@@ -25,9 +28,12 @@ h5{
     `
     }
 }
-
+input{
+    margin-right:1.2rem;
+}
 .list-icon{
     display:none;
+    margin-right:1rem;
 }
 &:hover {
     .list-icon{
@@ -37,10 +43,15 @@ h5{
 
 `
 
-function List({ done, list, handleRemove, handleToggle }) {
+function List({ update,done, list, handleRemove, handleToggle, handleUpdateToggle,}) {
+
+
+
+
+  
     return (
         <>
-            <ListWrapper done={done}  >
+            <ListWrapper done={done} update={update}  >
                 <input
 
                     type='checkbox'
@@ -51,12 +62,21 @@ function List({ done, list, handleRemove, handleToggle }) {
                 />
                 <h5 > {list.menu}</h5>
 
-                <span className='list-icon' onClick={e => {
+                <button  className='list-icon' 
+                onClick={() => {
+                    handleUpdateToggle(list.id)
+                }}>
+                    {list.update ? '적용' : '수정'}
+                    </button>
+                <button    
+                 className='list-icon'
+                  onClick={e => {
                     e.stopPropagation();
-                    handleRemove(list.id);
-                }}> ❌ </span>
+                    handleRemove(list.id);}}>
+                        삭제
+                    </button>
 
-
+              
 
             </ListWrapper>
 
@@ -75,8 +95,9 @@ margin-top:2rem;
 `
 
 
-function TodoList({ listZip, handleRemove, handleToggle }) {
+function TodoList({ listZip, handleRemove, handleToggle,handleUpdateToggle}) {
 
+      
 
 
 
@@ -90,6 +111,11 @@ function TodoList({ listZip, handleRemove, handleToggle }) {
                         done={list.done}
                         handleRemove={handleRemove}
                         handleToggle={handleToggle}
+                        handleUpdateToggle={handleUpdateToggle}
+                        update={list.update}
+
+                       
+                       
                     />
                 ))}
             </TodoListWrapper>

@@ -29,21 +29,29 @@ function App() {
   },
   {
     done:false
-  }
+  },
+{
+  update:false
+}
   );
+
+
+ 
 
   // const {menu} = input;
   const [listZip, setListZip] = useState([
     {
       id: 1,
       menu: '회',
-      done: false
+      done: false,
+      update:false
 
     },
     {
       id: 2,
       menu: '가지구이',
-      done: false
+      done: false,
+      update:false
 
     },
 
@@ -69,7 +77,8 @@ function App() {
     const list = {
       id: nextId.current,
       menu: input.menu,
-      done: false
+      done: false,
+      update:false
 
     };
     setListZip(
@@ -114,7 +123,9 @@ function App() {
     )
   }
 
-  const handleToggle = id => {
+ 
+
+  const handleToggle = (id) => {
 
     setListZip(listZip.map(list => {
       if (list.id === id) {
@@ -127,6 +138,32 @@ function App() {
     }))
   }
 
+
+  const handleUpdateToggle = (id) => {
+    setListZip(listZip.map(list => {
+      if (list.id === id) {
+        return {
+          ...list,
+          update: !list.update
+        }
+      }
+      return list
+    }))
+    }
+  
+
+
+
+
+//       const handleUpdate = (id,listZip) => {
+// console.log('업데이트');
+
+//       }
+
+
+
+        
+
   return (
     <>
       <GlobalStyle />
@@ -136,11 +173,16 @@ function App() {
           menu={input.menu}
           handleChange={handleChange}
           handleCreate={handleCreate}
+          
         />
         <TodoList
           listZip={listZip}
           handleRemove={handleRemove}
           handleToggle={handleToggle}
+          handleUpdateToggle={handleUpdateToggle}
+       
+      
+          
 
         />
       </AppWrapper>
