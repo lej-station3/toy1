@@ -1,8 +1,8 @@
 import React,{useState} from 'react';
 import styled, { css } from 'styled-components';
-import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
-import CreateIcon from '@material-ui/icons/Create';
-import SaveAltIcon from '@material-ui/icons/SaveAlt';
+import edit from '../icon/edit-2-outline.png';
+import trash from '../icon/trash-2-outline.png';
+
 
 
 
@@ -10,7 +10,7 @@ const ListWrapper = styled.div`
 display:flex;
 align-items:center;
 margin:0 auto;
-margin-top:1.4rem;
+margin-top:4rem;
 font-size:2rem;
 border:7px solid #49736F;
 width:400px;
@@ -18,7 +18,7 @@ width:400px;
 
 /* border-bottom:2px solid #A65149; */
 h5{
-    margin:0 auto;
+    margin:0 1rem;
     padding:2rem;
     font-weight:600;
     ${props =>
@@ -30,6 +30,17 @@ h5{
     color:#000;
     `
     }
+}
+
+button{
+    padding:0.5rem;
+    color:#f2f2f2;
+    font-size:1.3rem;
+    text-align:center;
+    font-weight:bold;
+    border:none;
+    border-radius:5px;
+    background:#A65149;
 }
 input{
     margin-right:1.2rem;
@@ -46,15 +57,18 @@ input{
 
 `
 
-function List({ update,done, list, handleRemove, handleToggle, handleUpdateToggle,}) {
+function List({ done, list, handleRemove, handleToggle, handleUpdateConfirm,}) {
 
 
-
+const handleUpdate = () => {
+    const newMenu = prompt('dd',list.menu);
+    handleUpdateConfirm(list.id,newMenu);
+};
 
   
     return (
         <>
-            <ListWrapper done={done} update={update}  >
+            <ListWrapper done={done}  >
                 {/* <input
 
                     type='checkbox'
@@ -70,9 +84,9 @@ function List({ update,done, list, handleRemove, handleToggle, handleUpdateToggl
 
                 <button  className='list-icon' 
                 onClick={() => {
-                    handleUpdateToggle(list.id)
+                    handleUpdate(list.id)
                 }}>
-                    {list.update ? '적용' : '수정'}
+                   수정
                     </button>
                 <button    
                  className='list-icon'
@@ -100,7 +114,7 @@ background:#BFAE7A;
 `
 
 
-function TodoList({ listZip, handleRemove, handleToggle,handleUpdateToggle}) {
+function TodoList({ listZip, handleRemove, handleToggle,handleUpdateConfirm}) {
 
       
 
@@ -116,8 +130,8 @@ function TodoList({ listZip, handleRemove, handleToggle,handleUpdateToggle}) {
                         done={list.done}
                         handleRemove={handleRemove}
                         handleToggle={handleToggle}
-                        handleUpdateToggle={handleUpdateToggle}
-                        update={list.update}
+                        handleUpdateConfirm={handleUpdateConfirm}
+                      
 
                        
                        
@@ -130,3 +144,4 @@ function TodoList({ listZip, handleRemove, handleToggle,handleUpdateToggle}) {
 }
 
 export default TodoList;
+

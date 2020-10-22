@@ -31,9 +31,6 @@ function App() {
   {
     done:false
   },
-{
-  update:false
-}
   );
 
 
@@ -45,14 +42,14 @@ function App() {
       id: 1,
       menu: '회',
       done: false,
-      update:false
+     
 
     },
     {
       id: 2,
       menu: '가지구이',
       done: false,
-      update:false
+      
 
     },
 
@@ -79,7 +76,7 @@ function App() {
       id: nextId.current,
       menu: input.menu,
       done: false,
-      update:false
+      
 
     };
     setListZip(
@@ -140,16 +137,17 @@ function App() {
   }
 
 
-  const handleUpdateToggle = (id) => {
+  const handleUpdateConfirm = (id,newMenu) => {
     setListZip(listZip.map(list => {
-      if (list.id === id) {
-        return {
-          ...list,
-          update: !list.update
-        }
-        
+      if (list.id !== id) {
+        return listZip
+      }else{
+return{
+  ...list,
+  menu:newMenu
+}
       }
-      return list
+     
     }))
     }
   
@@ -181,7 +179,7 @@ function App() {
           listZip={listZip}
           handleRemove={handleRemove}
           handleToggle={handleToggle}
-          handleUpdateToggle={handleUpdateToggle}
+          handleUpdateConfirm={handleUpdateConfirm}
        
       
           

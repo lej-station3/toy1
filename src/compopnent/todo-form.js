@@ -5,7 +5,6 @@ import styled from 'styled-components';
 const TodoFormWrapper = styled.div`
 display:flex;
 justify-content:center;
-margin-bottom:1.2rem;
     input{
         width:25rem;
         height:3rem;
@@ -16,12 +15,8 @@ margin-bottom:1.2rem;
         border:none;
         box-shadow:none;
         outline-style: none;
-     
-       
         cursor: pointer;
-        &:hover{
-            border-bottom:3px solid #A65149;
-        }
+      
 
     }
     button{
