@@ -2,11 +2,8 @@ import React, { useState, useRef } from 'react';
 import TodoForm from './compopnent/todo-form';
 import TodoList from './compopnent/todo-list';
 import AppWrapper from './compopnent/app-wrapper';
-import produce from 'immer'
+import produce from 'immer';
 import { createGlobalStyle } from 'styled-components';
-
-
-
 const GlobalStyle = createGlobalStyle`
   body{
     background: #49736F;
@@ -19,12 +16,7 @@ const GlobalStyle = createGlobalStyle`
   }
   `;
 
-
 function App() {
-
-  
-
-
   const [input, setInput] = useState({
     menu: '',
   },
@@ -32,138 +24,77 @@ function App() {
     done:false
   },
   );
-
-
- 
-
-  // const {menu} = input;
   const [listZip, setListZip] = useState([
     {
       id: 1,
       menu: '회',
       done: false,
-     
-
     },
     {
       id: 2,
       menu: '가지구이',
       done: false,
-      
-
     },
-
   ]);
 
-
   const handleChange = e => {
-
-    setInput(produce(input, (draft) => {
-      draft['menu'] = e.target.value;
-
+    setInput(produce(input, draft => {
+      draft[e.target.name] = e.target.value;
     }));
   };
 
-
   const nextId = useRef(3);
-
 
   const handleCreate = e => {
     e.preventDefault();
     console.log(input);
-
     const list = {
       id: nextId.current,
       menu: input.menu,
       done: false,
-      
-
     };
     setListZip(
-      produce(listZip, (draft) => {
+      produce(listZip, draft => {
         console.log(listZip, list);
         //여기서 draftZip이 listZip임 
-        draft.push(list)
+        draft.push(list);
       })
     );
     setInput({
-      menu: '',
-      
+      menu: '',  
     });
     nextId.current += 1;
-    
-
   };
-
-
-
-  // const handleCreate = () => {
-  //   const list= {
-  //     id: nextId.current,
-  //     menu,
-  //     check:false
-
-  //   };
-  //   setListZip(listZip.concat(list));
-
-  // setInput({
-  //   menu:''
-  // })
-
-  //   nextId.current += 1;
-  // };
-
-
-
-
-  const handleRemove = (id) => {
-    setListZip(listZip.filter(list => list.id !== id)
-    )
-  }
-
  
-
-  const handleToggle = (id) => {
-
+  const handleRemove = id => {
+    setListZip(listZip.filter(list => list.id !== id)
+    );
+  };
+  const handleToggle = id => {
     setListZip(listZip.map(list => {
       if (list.id === id) {
         return {
           ...list,
           done: !list.done
-        }
+        };
       }
-      return list
-    }))
-  }
-
+      return list;
+    }));
+  };
 
   const handleUpdateConfirm = (id,newMenu) => {
     setListZip(listZip.map(list => {
       if (list.id !== id) {
-        return listZip
+        return listZip;
       }else{
-return{
-  ...list,
-  menu:newMenu
-}
+        return{
+          ...list,
+          menu:newMenu
+        };
       }
      
-    }))
-    }
-  
-
-
-
-
-//       const handleUpdate = (id,listZip) => {
-// console.log('업데이트');
-
-//       }
-
-
-
-        
-
+    }));
+  };
   return (
     <>
       <GlobalStyle />
@@ -180,14 +111,10 @@ return{
           handleRemove={handleRemove}
           handleToggle={handleToggle}
           handleUpdateConfirm={handleUpdateConfirm}
-       
-      
-          
-
         />
       </AppWrapper>
     </>
-  )
+  );
 }
 
 export default App;
