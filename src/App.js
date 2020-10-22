@@ -84,15 +84,14 @@ function App() {
 
   const handleUpdateConfirm = (id,newMenu) => {
     setListZip(listZip.map(list => {
-      if (list.id !== id) {
-        return listZip;
+      if(list.id !== id){
+        return list;
       }else{
         return{
           ...list,
           menu:newMenu
         };
       }
-     
     }));
   };
   return (
