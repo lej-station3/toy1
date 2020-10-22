@@ -1,7 +1,6 @@
-import React from 'react';
 import styled from 'styled-components';
 
-const TodoFormWrapper = styled.div`
+export const TodoFormWrapper = styled.div`
   display:flex;
   justify-content:center;
     input{
@@ -33,20 +32,3 @@ const TodoFormWrapper = styled.div`
     }
 `;
 
-function TodoForm({ handleChange, handleCreate, menu,handleUpdate }) {
-  return (
-    <>
-      <TodoFormWrapper>
-        <input
-          type="text"
-          name="menu"
-          placeholder="메뉴를 적으세요"
-          onChange={handleChange}
-          value={menu}
-        />
-        <button onClick={handleCreate}>등록</button>
-      </TodoFormWrapper>
-    </>
-  );
-}
-export default TodoForm;

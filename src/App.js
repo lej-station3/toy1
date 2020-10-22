@@ -1,56 +1,55 @@
 import React, { useState, useRef } from 'react';
-import TodoForm from './compopnent/todo-form';
-import TodoList from './compopnent/todo-list';
 import AppWrapper from './compopnent/app-wrapper';
 import produce from 'immer';
 import { createGlobalStyle } from 'styled-components';
+import { TodoList,TodoForm
+} from './compopnent/index';
 const GlobalStyle = createGlobalStyle`
-  body{
+  #root {
+  font-family:  'Roboto',-apple-system;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+}
+html {
+  padding: 0;
+  margin: 0;
+  font-size: 10px;
+}
+body{
     background: #49736F;
   }
+
   h1{
     margin:0 auto;
     color:#A65149;
     font-size:15rem;
-
+    letter-spacing:5px;
   }
   `;
 
 function App() {
-  const [input, setInput] = useState({
-    menu: '',
-  },
-  {
-    done:false
-  },
-  );
+  const [input, setInput] = useState(''); //input.menu바꿈
   const [listZip, setListZip] = useState([
     {
       id: 1,
       menu: '회',
       done: false,
     },
-    {
-      id: 2,
-      menu: '가지구이',
-      done: false,
-    },
   ]);
 
   const handleChange = e => {
-    setInput(produce(input, draft => {
-      draft[e.target.name] = e.target.value;
-    }));
+    setInput(e.currentTarget.value);//앞으로도계속~
   };
 
-  const nextId = useRef(3);
+  const nextId = useRef(2);
 
-  const handleCreate = e => {
-    e.preventDefault();
+  const handleCreate = () => {
+    // e.preventDefault();
     console.log(input);
     const list = {
       id: nextId.current,
-      menu: input.menu,
+      menu: input,
       done: false,
     };
     setListZip(
@@ -60,50 +59,74 @@ function App() {
         draft.push(list);
       })
     );
-    setInput({
-      menu: '',  
-    });
+    setInput('');
     nextId.current += 1;
   };
  
   const handleRemove = id => {
-    setListZip(listZip.filter(list => list.id !== id)
+    setListZip(listZip.filter(
+      list => list.id !== id)
     );
   };
+
   const handleToggle = id => {
-    setListZip(listZip.map(list => {
-      if (list.id === id) {
-        return {
-          ...list,
-          done: !list.done
-        };
-      }
-      return list;
-    }));
+    const next = produce(listZip, draft => {
+      const idx = draft.findIndex(i => i.id === id);
+      draft[idx].done = !draft[idx].done;
+    });
+    setListZip(next);
+
+    // setListZip(prevState => {
+    //   return prevState.map(list => {
+    //     if (list.id === id) {
+    //       return {
+    //         ...list,
+    //         done: !list.done
+    //       };
+    //     }
+    //     return list;
+    //   });
+    // });
   };
 
-  const handleUpdateConfirm = (id,newMenu) => {
-    setListZip(listZip.map(list => {
-      if(list.id !== id){
-        return list;
-      }else{
-        return{
-          ...list,
-          menu:newMenu
-        };
-      }
-    }));
-  };
+  // const handleToggle = id => {
+  //   setListZip(listZip.map(list => {
+  //     if (list.id === id) {
+  //       return {
+  //         ...list,
+  //         done: !list.done
+  //       };
+  //     }
+  //     return list;
+  //   }));
+  // };
+
+
+  const handleUpdateConfirm = (id, menuNew) => {
+    console.log('id ', id, menuNew)
+    setListZip(
+      listZip.map(listItem => {
+        if(listItem.id !== id) {
+          return listItem
+        }
+        else {
+          return {
+            ...listItem, 
+            menu:menuNew
+          }
+        }
+      })
+    );
+  }
   return (
     <>
       <GlobalStyle />
       <AppWrapper>
         <h1>MENU</h1>
         <TodoForm
-          menu={input.menu}
+          menu={input}
           handleChange={handleChange}
           handleCreate={handleCreate}
-          
         />
         <TodoList
           listZip={listZip}
